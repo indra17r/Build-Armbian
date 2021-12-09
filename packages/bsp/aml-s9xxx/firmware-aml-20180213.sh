@@ -3,7 +3,7 @@ build_firmware-aml-20180213()
 {
 	display_alert "Merging and packaging linux firmware-aml-20180213" "@host" "info"
 
-	local plugin_repo="https://github.com/150balbes/pkg-aml"
+	local plugin_repo="https://github.com/osdu/150balbes-pkg-aml"
 	local plugin_dir="firmware-aml-20180213"
 	[[ -d "$SOURCES/$plugin_dir" && -n "$SOURCES$plugin_dir" ]] && rm -rf $SOURCES/$plugin_dir
 

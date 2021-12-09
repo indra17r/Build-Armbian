@@ -118,8 +118,9 @@ create_rootfs_cache()
 		[[ -z $OUTPUT_DIALOG ]] && local apt_extra_progress="--show-progress -o DPKG::Progress-Fancy=1"
 
 		display_alert "Installing base system" "Stage 1/2" "info"
+		eval 'wget https://ftp-master.debian.org/keys/release-9.asc -qO- | gpg --import --no-default-keyring --keyring ./debian-release.gpg'
 		eval 'debootstrap --include=locales,gnupg,ifupdown ${PACKAGE_LIST_EXCLUDE:+ --exclude=${PACKAGE_LIST_EXCLUDE// /,}} \
-			--arch=$ARCH --foreign $RELEASE $SDCARD/ $apt_mirror' \
+			--arch=$ARCH --keyring=./debian-release.gpg --foreign $RELEASE $SDCARD/ $apt_mirror' \
 			${PROGRESS_LOG_TO_FILE:+' | tee -a $DEST/debug/debootstrap.log'} \
 			${OUTPUT_DIALOG:+' | dialog --backtitle "$backtitle" --progressbox "Debootstrap (stage 1/2)..." $TTY_Y $TTY_X'} \
 			${OUTPUT_VERYSILENT:+' >/dev/null 2>/dev/null'}
